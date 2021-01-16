@@ -29,7 +29,7 @@ test:
   artifacts:
     when: always
     reports:
-      junit: target/site/serenity/index.xml
+      junit: target/site/serenity/index.html
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull
