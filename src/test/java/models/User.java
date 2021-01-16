@@ -26,6 +26,6 @@ public class User {
     public String phone;
 
     @JsonProperty("userStatus")
-    public String userStatus;
+    public int userStatus;
 
 }

@@ -16,7 +16,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 
-public class PetsServiceSteps  {
+public class PetsServiceSteps {
 
     public static Pet pet = new Pet();
     Category category = new Category();
@@ -34,6 +34,7 @@ public class PetsServiceSteps  {
         category = generateCategoryInfo("testCategory");
         pet = petsService.addNewPetToTheStore(generatePetObjectInfoWithImage(0, name, imageUrl, status, category))
                 .then().log().ifError().statusCode(200).extract().body().as(Pet.class);
+        Assert.assertTrue("Pet with id " + pet.id + " not exist", petsService.getAllPetsById(pet.id).name.contains(name));
     }
 
     @Then("make sure that status of pet {word} is {word}")
@@ -52,6 +53,17 @@ public class PetsServiceSteps  {
     public void updateStatusForTheCreatedPet(String status) {
         petsService.updateExistingPet(generatePetObjectInfoWithImage(pet.id, pet.name, "null", status, category))
                 .then().log().ifError().statusCode(200);
+    }
+
+    @Then("I update pet in the order to name {word} and status {word} - {word}")
+    public void updateCreatedPet(String name, String status, String successType) {
+        int givenId = (int) System.currentTimeMillis();
+        if (!successType.contains("error")) {
+            givenId = OrderServiceSteps.petInfoOrder.id;
+            petsService.updatePetInTheStoreWithFormData(givenId, name, status).then().statusCode(200);
+        } else {
+            petsService.updatePetInTheStoreWithFormData(givenId, name, status).then().statusCode(404);
+        }
     }
 
     @Then("delete pet with name {word} and status {word} from the store")

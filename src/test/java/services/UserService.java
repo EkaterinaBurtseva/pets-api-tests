@@ -10,7 +10,7 @@ import java.util.List;
 public class UserService extends BaseService {
 
     @Step("create new users with info ${0}")
-    public Response createUserWithArray(User[] userInfo) {
+    public Response createUserWithArray(Object[] userInfo) {
         return setUp().when()
                 .body(userInfo)
                 .post("user/createWithArray");
@@ -18,7 +18,7 @@ public class UserService extends BaseService {
     }
 
     @Step("create new users based on list ${0}")
-    public Response createUserWithList(List<User> userInfo) {
+    public Response createUserWithList(Object[] userInfo) {
         return setUp().when()
                 .body(userInfo)
                 .post("user/createWithArray");
@@ -35,7 +35,7 @@ public class UserService extends BaseService {
 
     public User getUserById(String userName) {
         return setUp().when()
-                .get(String.format("user/%s", userName)).then().extract()
+                .get(String.format("user/%s", userName)).then().log().ifError().statusCode(200).extract()
                 .body().jsonPath().getObject("", User.class);
 
     }
@@ -47,19 +47,19 @@ public class UserService extends BaseService {
 
     }
 
-    Response deleteUser(String username) {
+   public Response deleteUser(String username) {
         return setUp().when()
                 .delete(String.format("user/%s", username));
 
     }
 
-    Response loginWithUser(String username, String password) {
+   public Response loginWithUser(String username, String password) {
         return setUp().when()
-                .get(String.format("login?username=%s&password=%s", username, password));
+                .get(String.format("user/login?username=%s&password=%s", username, password));
 
     }
 
-    Response logout() {
+    public Response logout() {
         return setUp().when()
                 .get("user/logout");
 
