@@ -39,8 +39,9 @@ Latest serenity report:
  ![serenitysteps.png](src/test/resources/reports/serenitysteps.png)
  Latest report located here src/test/resources/reports/index.html
 Latest job results from the CI: 
-
-Demo available here 
+![buildtest.png](src/test/resources/reports/buildtest.png)
+ ![test.png](src/test/resources/reports/test.png)
+Demo available separately
 
 #TODO
 * extend current test coverage
@@ -64,4 +65,3 @@ gradle build
 Clarify run configuration it should be similar to 
 ![cucumbersett.png](src/test/resources/reports/cucumbersett.png).
  Pay attention to Glue and classpath of module
-
