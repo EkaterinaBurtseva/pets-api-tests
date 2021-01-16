@@ -37,7 +37,7 @@ public class OrderServiceSteps {
     public void createNewOrder(String status) {
         List<Pet> petsList = new PetsService().getAllPetsByStatus(status);
         if (status.contains("test")) {
-            Assert.assertEquals("Pet with status " + status + " exist in the list", petsList.size(), 0);
+            Assert.assertEquals("Pet with status " + status + " exist in the list",0, petsList.size());
         } else {
             petInfoOrder = petsList.get(0);
             storeService.purchaseAPet(generatOrderInfo(petInfoOrder.id, 2)).then().log().ifError().statusCode(200);
@@ -47,7 +47,7 @@ public class OrderServiceSteps {
 
     @Then("make sure that order is successfully created")
     public void checkOrderExistInTheList() {
-        Assert.assertTrue("There is no order with id " + order.id, storeService.getOrderById(order.id).petId == (PetsServiceSteps.pet.id));
+        Assert.assertEquals("There is no order with id " + order.id, storeService.getOrderById(order.id).petId , PetsServiceSteps.pet.id);
     }
 
 

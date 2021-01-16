@@ -25,7 +25,11 @@ build:
 
 test:
   stage: test
-  script: gradle check
+  script: gradle test
+  artifacts:
+    when: always
+    reports:
+      junit: target/site/serenity/index.xml
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull

@@ -20,12 +20,27 @@ Test automation solution to verify https://petstore.swagger.io/#/
 gradle clean test aggregate
 ```
 * via gitlab CI
+    * upload project to gitlab
+    * run pipeline 
+    
+ * via gitlab CI locally to do this need to follow instruction based on
+ https://docs.gitlab.com/runner/commands/
+ 
+ # How to add new tests to the framework
+ * if its a new feature - create a separate feature file in src/test/resources/featues
+ * add cucumber flows there
+ * add definitions of the steps in src/test/java/stepdefinitions
+ * extend/add models can be done at src/test/java/model folder and services at src/test/java/services
+ * cucumber test runner options can be added/updated at java/CucumberTestRunner.java
 
 # Reporting and demo
-Latest serenity report:
+Latest serenity report: 
+ ![serenitygeneral.png](src/test/resources/reports/serenitygeneral.png)
+ ![serenitysteps.png](src/test/resources/reports/serenitysteps.png)
+ Latest report located here src/test/resources/reports/index.html
 Latest job results from the CI: 
-Demo available here 
 
+Demo available here 
 
 #TODO
 * extend current test coverage
@@ -45,4 +60,8 @@ gradle --stop
 ```
 gradle build
 ```
+- problems with running cucumber tests locally. 
+Clarify run configuration it should be similar to 
+![cucumbersett.png](src/test/resources/reports/cucumbersett.png).
+ Pay attention to Glue and classpath of module
 
